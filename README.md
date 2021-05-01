@@ -16,6 +16,7 @@ INI Compacter is a tool that shows you every header/property combination of a co
 - Search for occurrence files.
 - Can modify the search pattern to read INI formatted data that doesn't have an .INI extension
 - Open location of occurrence files.
+- Headers with numbers are scrapped down and numbers removed so if your headers look like [ITEM356] [ITEM357] [ITEM358], don't worry, this will truncate them to [ITEM] 
 
 ## Screenshot
 
