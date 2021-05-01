@@ -1,4 +1,6 @@
-﻿
+﻿using System.Windows.Forms;
+using System.Windows;
+
 namespace IniCompacter
 {
     partial class Form1
@@ -39,14 +41,14 @@ namespace IniCompacter
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxEXT = new System.Windows.Forms.TextBox();
             this.SPLITTER = new System.Windows.Forms.SplitContainer();
-            this.groupBoxFoundIn = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.listBoxResults = new System.Windows.Forms.ListBox();
+            this.textBoxResultsSearch = new System.Windows.Forms.TextBox();
+            this.groupBoxFoundIn = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxFoundIn = new System.Windows.Forms.ListBox();
             this.textBoxFoundInSearch = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBoxResultsSearch = new System.Windows.Forms.TextBox();
-            this.listBoxResults = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -54,10 +56,10 @@ namespace IniCompacter
             this.SPLITTER.Panel1.SuspendLayout();
             this.SPLITTER.Panel2.SuspendLayout();
             this.SPLITTER.SuspendLayout();
-            this.groupBoxFoundIn.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.groupBoxFoundIn.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -145,12 +147,12 @@ namespace IniCompacter
             this.tableLayoutPanel3.Controls.Add(this.buttonGather, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.textBoxEXT, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(19, 55);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(17, 55);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(537, 40);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(542, 40);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // buttonGather
@@ -161,9 +163,9 @@ namespace IniCompacter
             this.buttonGather.Location = new System.Drawing.Point(338, 5);
             this.buttonGather.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonGather.Name = "buttonGather";
-            this.buttonGather.Size = new System.Drawing.Size(195, 30);
+            this.buttonGather.Size = new System.Drawing.Size(200, 30);
             this.buttonGather.TabIndex = 2;
-            this.buttonGather.Text = "Gather Unique Properies";
+            this.buttonGather.Text = "Gather Unique Properties";
             this.buttonGather.UseVisualStyleBackColor = true;
             this.buttonGather.Click += new System.EventHandler(this.buttonGather_Click);
             // 
@@ -209,19 +211,6 @@ namespace IniCompacter
             this.SPLITTER.SplitterWidth = 24;
             this.SPLITTER.TabIndex = 5;
             // 
-            // groupBoxFoundIn
-            // 
-            this.groupBoxFoundIn.Controls.Add(this.tableLayoutPanel4);
-            this.groupBoxFoundIn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxFoundIn.Location = new System.Drawing.Point(0, 0);
-            this.groupBoxFoundIn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBoxFoundIn.Name = "groupBoxFoundIn";
-            this.groupBoxFoundIn.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBoxFoundIn.Size = new System.Drawing.Size(279, 441);
-            this.groupBoxFoundIn.TabIndex = 5;
-            this.groupBoxFoundIn.TabStop = false;
-            this.groupBoxFoundIn.Text = "Property Found In:";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel5);
@@ -234,6 +223,58 @@ namespace IniCompacter
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Unique Properties:";
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 1;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.listBoxResults, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.textBoxResultsSearch, 0, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(4, 24);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(249, 412);
+            this.tableLayoutPanel5.TabIndex = 0;
+            // 
+            // listBoxResults
+            // 
+            this.listBoxResults.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxResults.FormattingEnabled = true;
+            this.listBoxResults.ItemHeight = 20;
+            this.listBoxResults.Location = new System.Drawing.Point(4, 41);
+            this.listBoxResults.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listBoxResults.Name = "listBoxResults";
+            this.listBoxResults.Size = new System.Drawing.Size(241, 366);
+            this.listBoxResults.TabIndex = 1;
+            this.listBoxResults.SelectedIndexChanged += new System.EventHandler(this.listBoxResults_SelectedIndexChanged);
+            // 
+            // textBoxResultsSearch
+            // 
+            this.textBoxResultsSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxResultsSearch.Location = new System.Drawing.Point(4, 5);
+            this.textBoxResultsSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxResultsSearch.Name = "textBoxResultsSearch";
+            this.textBoxResultsSearch.Size = new System.Drawing.Size(241, 26);
+            this.textBoxResultsSearch.TabIndex = 0;
+            this.textBoxResultsSearch.TextChanged += new System.EventHandler(this.textBoxResultsSearch_TextChanged);
+            // 
+            // groupBoxFoundIn
+            // 
+            this.groupBoxFoundIn.Controls.Add(this.tableLayoutPanel4);
+            this.groupBoxFoundIn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxFoundIn.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxFoundIn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxFoundIn.Name = "groupBoxFoundIn";
+            this.groupBoxFoundIn.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBoxFoundIn.Size = new System.Drawing.Size(279, 441);
+            this.groupBoxFoundIn.TabIndex = 5;
+            this.groupBoxFoundIn.TabStop = false;
+            this.groupBoxFoundIn.Text = "Property Found In:";
             // 
             // tableLayoutPanel4
             // 
@@ -276,45 +317,6 @@ namespace IniCompacter
             this.textBoxFoundInSearch.TabIndex = 2;
             this.textBoxFoundInSearch.TextChanged += new System.EventHandler(this.textBoxFoundInSearch_TextChanged);
             // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.listBoxResults, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBoxResultsSearch, 0, 0);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(4, 24);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(249, 412);
-            this.tableLayoutPanel5.TabIndex = 0;
-            // 
-            // textBoxResultsSearch
-            // 
-            this.textBoxResultsSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxResultsSearch.Location = new System.Drawing.Point(4, 5);
-            this.textBoxResultsSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBoxResultsSearch.Name = "textBoxResultsSearch";
-            this.textBoxResultsSearch.Size = new System.Drawing.Size(241, 26);
-            this.textBoxResultsSearch.TabIndex = 0;
-            this.textBoxResultsSearch.TextChanged += new System.EventHandler(this.textBoxResultsSearch_TextChanged);
-            // 
-            // listBoxResults
-            // 
-            this.listBoxResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxResults.FormattingEnabled = true;
-            this.listBoxResults.ItemHeight = 20;
-            this.listBoxResults.Location = new System.Drawing.Point(4, 41);
-            this.listBoxResults.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.listBoxResults.Name = "listBoxResults";
-            this.listBoxResults.Size = new System.Drawing.Size(241, 366);
-            this.listBoxResults.TabIndex = 1;
-            this.listBoxResults.SelectedIndexChanged += new System.EventHandler(this.listBoxResults_SelectedIndexChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -336,13 +338,13 @@ namespace IniCompacter
             this.SPLITTER.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SPLITTER)).EndInit();
             this.SPLITTER.ResumeLayout(false);
-            this.groupBoxFoundIn.ResumeLayout(false);
-            this.groupBoxFoundIn.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
+            this.groupBoxFoundIn.ResumeLayout(false);
+            this.groupBoxFoundIn.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
