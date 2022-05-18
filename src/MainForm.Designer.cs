@@ -44,7 +44,6 @@ namespace IniCompacter
             this.SPLITTER = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.listBoxResults = new System.Windows.Forms.ListBox();
             this.textBoxResultsSearch = new System.Windows.Forms.TextBox();
             this.groupBoxFoundIn = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -54,6 +53,7 @@ namespace IniCompacter
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxValues = new System.Windows.Forms.ListBox();
             this.textBoxVaues = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -71,6 +71,7 @@ namespace IniCompacter
             this.tableLayoutPanel4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -257,8 +258,8 @@ namespace IniCompacter
             // 
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.listBoxResults, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.textBoxResultsSearch, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.dataGridView1, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(4, 24);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -268,18 +269,6 @@ namespace IniCompacter
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(341, 224);
             this.tableLayoutPanel5.TabIndex = 0;
-            // 
-            // listBoxResults
-            // 
-            this.listBoxResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxResults.FormattingEnabled = true;
-            this.listBoxResults.ItemHeight = 20;
-            this.listBoxResults.Location = new System.Drawing.Point(4, 41);
-            this.listBoxResults.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.listBoxResults.Name = "listBoxResults";
-            this.listBoxResults.Size = new System.Drawing.Size(333, 178);
-            this.listBoxResults.TabIndex = 1;
-            this.listBoxResults.SelectedIndexChanged += new System.EventHandler(this.listBoxResults_SelectedIndexChanged);
             // 
             // textBoxResultsSearch
             // 
@@ -398,7 +387,25 @@ namespace IniCompacter
             this.textBoxVaues.TabIndex = 0;
             this.textBoxVaues.TextChanged += new System.EventHandler(this.textBoxVaues_TextChanged);
             // 
-            // Form1
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 39);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.ShowEditingIcon = false;
+            this.dataGridView1.Size = new System.Drawing.Size(335, 182);
+            this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -407,7 +414,7 @@ namespace IniCompacter
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MinimumSize = new System.Drawing.Size(592, 594);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "INI Property Compacter";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -433,6 +440,7 @@ namespace IniCompacter
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -452,7 +460,6 @@ namespace IniCompacter
         private SplitContainer SPLITTER;
         private GroupBox groupBox1;
         private TableLayoutPanel tableLayoutPanel5;
-        private ListBox listBoxResults;
         private TextBox textBoxResultsSearch;
         private GroupBox groupBoxFoundIn;
         private TableLayoutPanel tableLayoutPanel4;
@@ -462,6 +469,7 @@ namespace IniCompacter
         private TableLayoutPanel tableLayoutPanel6;
         private ListBox listBoxValues;
         private TextBox textBoxVaues;
+        private DataGridView dataGridView1;
     }
 }
 

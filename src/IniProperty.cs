@@ -9,20 +9,21 @@ namespace IniCompacter
 {
     class IniProperty
     {
-        public string Name { get; set; }
+        public string PropertyName { get; set; }
         public string Header { get; set; }
 
+        public int Count => FileOcurrences.Count;
         public List<string> FileOcurrences { get; set; }
 
         /// <summary>
         /// Key is value, values are files
         /// </summary>
         public Dictionary<string, List<string>> Values { get; set; }
-        public string DisplayMember => $"[{Header}] {Name} ({FileOcurrences.Count})";
+        public string DisplayMember => $"[{Header}] {PropertyName} ({FileOcurrences.Count})";
 
         public IniProperty(string name, string header)
         {
-            Name = name;
+            PropertyName = name;
             FileOcurrences = new List<string>();
             Values = new Dictionary<string, List<string>>();
             Regex r = new Regex("([0-9]+)");
