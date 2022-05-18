@@ -14,7 +14,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  binariesLocation: '$(Build.SourcesDirectory)/bin/Release'
+  binariesLocation: '$(Build.SourcesDirectory)/src/bin/Release'
   # $(Build.BuildNumber) saca el valor desde la linea 6 (campo "name")
   # basicamente es año de 2 digitos, punto, mes de 2 digitos, punto, numero de revision
   releaseVersionName: 'release-v$(Build.BuildNumber)-$(Build.SourceBranchName)'
