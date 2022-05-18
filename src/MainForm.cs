@@ -33,6 +33,7 @@ namespace IniCompacter
         List<Dictionary<string, List<string>>> values = new List<Dictionary<string, List<string>>>();
         List<string> filteredValues = new List<string>();
 
+        private IniProperty SelectedProperty => dataGridView1.SelectedRows.Count == 0 ? null :  dataGridView1.SelectedRows[0].DataBoundItem as IniProperty;
 
         private bool updatingValues;
 
@@ -97,7 +98,7 @@ namespace IniCompacter
                         if (r.IsMatch(property))
                             property = r.Replace(property, "#");
 
-                        var prop = allProperties.FirstOrDefault(x => x.Header == header && x.Name == property);
+                        var prop = allProperties.FirstOrDefault(x => x.Header == header && x.PropertyName == property);
                         if (prop == null)
                         {
                             prop = new IniProperty(property, header);
@@ -122,16 +123,25 @@ namespace IniCompacter
             {
                 filteredmatches = allProperties.Where(x => x.DisplayMember.Contains(textBoxResultsSearch.Text.ToUpper())).ToList();
             }
-            listBoxResults.DataSource = filteredmatches.OrderBy(x => x.DisplayMember).ToList();
-            listBoxResults.DisplayMember = "DisplayMember";
+            dataGridView1.DataSource = filteredmatches.OrderBy(x => x.DisplayMember).ToList();
+            dataGridView1.Columns["DisplayMember"].Visible = false;
+            dataGridView1.Columns["Values"].Visible = false;
+            dataGridView1.Columns["Header"].DisplayIndex = 0;
+            dataGridView1.Columns["PropertyName"].HeaderText = "Property Name";
+
+            dataGridView1.Columns["Header"].Width = dataGridView1.Columns["Header"].GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, false);
+            dataGridView1.Columns["PropertyName"].Width = dataGridView1.Columns["PropertyName"].GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, false);
+
+            //listBoxResults.DataSource = filteredmatches.OrderBy(x => x.DisplayMember).ToList();
+            //listBoxResults.DisplayMember = "DisplayMember";
         }
 
         void DisplayValues()
         {
             updatingValues = true;
-            if (listBoxResults.SelectedItem is IniProperty iniprop)
+            if (SelectedProperty != null)
             {
-                var filtered = iniprop.Values.Keys.OrderBy(x => x).ToList();
+                var filtered = SelectedProperty.Values.Keys.OrderBy(x => x).ToList();
                 var filter = textBoxVaues.Text.ToUpper();
                 if (!string.IsNullOrWhiteSpace(filter))
                 {
@@ -143,20 +153,6 @@ namespace IniCompacter
                 listBoxValues.EndUpdate();
             }
             updatingValues = false;
-        }
-
-        private void listBoxResults_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            listBoxFoundIn.BeginUpdate();
-            listBoxFoundIn.DataSource = null;
-            if (listBoxResults.SelectedItem is IniProperty iniprop)
-            {
-                LastClicked = Stype.Result;
-                DisplayFoundInResults();
-                DisplayValues();
-            }
-            listBoxFoundIn.EndUpdate();
         }
 
         public bool ExploreFile(string filePath)
@@ -182,12 +178,12 @@ namespace IniCompacter
 
         private void DisplayFoundInResults()
         {
-            if (listBoxResults.SelectedItem is IniProperty iniprop)
+            if (SelectedProperty != null)
             {
                 if (LastClicked == Stype.Result)
                 {
                     groupBoxFoundIn.Text = "Header/Property Found In:";
-                    filteredFoundIn = iniprop.FileOcurrences;
+                    filteredFoundIn = SelectedProperty.FileOcurrences;
                     if (!string.IsNullOrWhiteSpace(textBoxFoundInSearch.Text))
                     {
                         filteredFoundIn = filteredFoundIn.Where(x => x.Contains(textBoxFoundInSearch.Text.ToUpper())).ToList();
@@ -202,7 +198,7 @@ namespace IniCompacter
                     string value = listBoxValues.SelectedItem as string;
                     if (value != null)
                     {
-                        filteredFoundIn = iniprop.Values[value];
+                        filteredFoundIn = SelectedProperty.Values[value];
                         if (!string.IsNullOrWhiteSpace(textBoxFoundInSearch.Text))
                         {
                             filteredFoundIn = filteredFoundIn.Where(x => x.Contains(textBoxFoundInSearch.Text.ToUpper())).ToList();
@@ -232,6 +228,19 @@ namespace IniCompacter
         private void textBoxVaues_TextChanged(object sender, EventArgs e)
         {
             DisplayValues();
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            listBoxFoundIn.BeginUpdate();
+            listBoxFoundIn.DataSource = null;
+            if (SelectedProperty != null)
+            {
+                LastClicked = Stype.Result;
+                DisplayFoundInResults();
+                DisplayValues();
+            }
+            listBoxFoundIn.EndUpdate();
         }
     }
 }
