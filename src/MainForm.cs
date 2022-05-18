@@ -16,7 +16,14 @@ namespace IniCompacter
         /// </summary>
         Dictionary<string, IniResult> filesAndContents = new Dictionary<string, IniResult>();
 
+        /// <summary>
+        /// All found properties, across all files.
+        /// </summary>
         List<IniProperty> allProperties = new List<IniProperty>();
+        
+        /// <summary>
+        /// Search-matching properties, across all files.
+        /// </summary>
         List<IniProperty> filteredmatches = new List<IniProperty>();
 
         List<string> files = new List<string>();
