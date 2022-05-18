@@ -1,4 +1,7 @@
 # IniCompacter
+
+![Build Status](https://dev.azure.com/Tilation/Ini%20Data%20Viewer/_apis/build/status/Tilation.Bulk-Ini-Analyzer?branchName=master)
+
 INI Compacter is a tool that shows you every header/property combination of a collection of items inside a folder, and on which files are present.
 
 
