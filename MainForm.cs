@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace IniCompacter
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
+        readonly Regex r = new Regex("([0-9]+)");
+
+        /// <summary>
+        /// Key is the file, value is the content of the ini as <see cref="IniResult"/>
+        /// </summary>
+        Dictionary<string, IniResult> filesAndContents = new Dictionary<string, IniResult>();
+
+        List<IniProperty> allProperties = new List<IniProperty>();
+        List<IniProperty> filteredmatches = new List<IniProperty>();
+
         List<string> files = new List<string>();
 
-        Dictionary<string, INIProperty> matches = new Dictionary<string, INIProperty>();
-
-        Dictionary<string, INIProperty> filteredmatches = new Dictionary<string, INIProperty>();
         List<string> filteredFoundIn = new List<string>();
 
         List<Dictionary<string, List<string>>> values = new List<Dictionary<string, List<string>>>();
         List<string> filteredValues = new List<string>();
+
 
         private bool updatingValues;
 
@@ -26,9 +34,10 @@ namespace IniCompacter
             Result,
             Value
         }
+
         Stype LastClicked;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -44,13 +53,12 @@ namespace IniCompacter
             }
         }
 
-        private void buttonGather_Click(object sender, EventArgs e)
+        private async void buttonGather_Click(object sender, EventArgs e)
         {
             var root = textBoxRoot.Text;
             if (string.IsNullOrWhiteSpace(root) || !Directory.Exists(root)) return;
 
-            matches.Clear();
-            files.Clear();
+            filesAndContents.Clear();
 
             string filter = string.IsNullOrWhiteSpace(textBoxEXT.Text) ? "*.ini" : $"*.{textBoxEXT.Text}";
 
@@ -59,60 +67,68 @@ namespace IniCompacter
             for (int i = 0; i < files.Count; i++)
             {
                 var file = files[i];
-                var lines = File.ReadLines(file);
-                string header = "";
-                foreach(string line in lines)
+                var result = await IniReader.Read(file);
+                filesAndContents.Add(file, result);
+            }
+
+            foreach (var kv in filesAndContents)
+            {
+                var ini = kv.Value;
+                var file = kv.Key;
+
+                var headers = ini.GetHeaders();
+                foreach(var h in headers.Select(x=>x.ToLower()))
                 {
-                    if (line.Contains("["))
-                    {
-                        header = line.Trim().ToUpper();
-                        //MessageBox.Show(header);
-                    }
-                    if (!line.Contains("=")) continue;
+                    var header = h;
+                    if (r.IsMatch(header)) 
+                        header = r.Replace(header, "#");
 
-                    string property = line.Split('=')[0].Trim().ToUpper();
+                    var properties = ini.GetPropertyNames(h);
+                    foreach (var p in properties.Select(x=>x.ToLower()))
+                    {
+                        var property = p;
+                        if (r.IsMatch(property))
+                            property = r.Replace(property, "#");
 
-                    Regex r = new Regex("([0-9]*)");
-                    property = $"{r.Replace(header, "")} {property}";
-                    if (!matches.ContainsKey(property))
-                    {
-                        matches.Add(property, new INIProperty(property, header));
+                        var prop = allProperties.FirstOrDefault(x => x.Header == header && x.Name == property);
+                        if (prop == null)
+                        {
+                            prop = new IniProperty(property, header);
+                            allProperties.Add(prop);
+                        }
+                        prop.FileOcurrences.Add(file);
+                        var value = ini.AsString(h, p);
+                        if (!prop.Values.ContainsKey(value)) prop.Values.Add(value, new List<string>());
+                        prop.Values[value].Add(file);
                     }
-                    matches[property].FileOcurrences.Add(file);
-                    
-                    string value = line.Split('=')[1].Trim().ToUpper();
-                    if (!matches[property].Values.ContainsKey(value))
-                    {
-                        matches[property].Values.Add(value, new List<string>());
-                    }
-                    matches[property].Values[value].Add(file);
                 }
             }
+
 
             DisplayResults();
         }
 
         private void DisplayResults()
         {
-            filteredmatches = matches;
+            filteredmatches = allProperties;
             if (!string.IsNullOrWhiteSpace(textBoxResultsSearch.Text))
             {
-                filteredmatches = matches.Where(x => x.Value.DisplayMember.Contains(textBoxResultsSearch.Text.ToUpper())).ToDictionary(X => X.Key, x => x.Value);
+                filteredmatches = allProperties.Where(x => x.DisplayMember.Contains(textBoxResultsSearch.Text.ToUpper())).ToList();
             }
-            listBoxResults.DataSource = filteredmatches.Values.OrderBy(x=>x.DisplayMember).ToList();
+            listBoxResults.DataSource = filteredmatches.OrderBy(x => x.DisplayMember).ToList();
             listBoxResults.DisplayMember = "DisplayMember";
         }
 
         void DisplayValues()
         {
             updatingValues = true;
-            if (listBoxResults.SelectedItem is INIProperty iniprop)
+            if (listBoxResults.SelectedItem is IniProperty iniprop)
             {
                 var filtered = iniprop.Values.Keys.OrderBy(x => x).ToList();
                 var filter = textBoxVaues.Text.ToUpper();
                 if (!string.IsNullOrWhiteSpace(filter))
                 {
-                    filtered = filtered.Where(x => x.Contains(filter)).OrderBy(x=>x).ToList();
+                    filtered = filtered.Where(x => x.Contains(filter)).OrderBy(x => x).ToList();
                 }
                 listBoxValues.BeginUpdate();
                 listBoxValues.DataSource = null;
@@ -120,7 +136,6 @@ namespace IniCompacter
                 listBoxValues.EndUpdate();
             }
             updatingValues = false;
-
         }
 
         private void listBoxResults_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,7 +143,7 @@ namespace IniCompacter
 
             listBoxFoundIn.BeginUpdate();
             listBoxFoundIn.DataSource = null;
-            if (listBoxResults.SelectedItem is INIProperty iniprop)
+            if (listBoxResults.SelectedItem is IniProperty iniprop)
             {
                 LastClicked = Stype.Result;
                 DisplayFoundInResults();
@@ -137,26 +152,6 @@ namespace IniCompacter
             listBoxFoundIn.EndUpdate();
         }
 
-        class INIProperty
-        {
-            public string Name { get; set; }
-            public string Header { get; set; }
-            
-            public List<string> FileOcurrences { get; set; }
-            public Dictionary<string, List<string>> Values { get; set; }
-            public string DisplayMember => $"{Name} ({FileOcurrences.Count})";
-            
-            public INIProperty(string name, string header)
-            {
-                this.Name = name;
-                FileOcurrences = new List<string>();
-                Values = new Dictionary<string, List<string>>();
-                Regex r = new Regex("([0-9]*)");
-                this.Header = r.Replace(header, "");
-                //MessageBox.Show($"prev: {header} post: {Header}");
-            }
-
-        }
         public bool ExploreFile(string filePath)
         {
             if (!System.IO.File.Exists(filePath))
@@ -180,7 +175,7 @@ namespace IniCompacter
 
         private void DisplayFoundInResults()
         {
-            if (listBoxResults.SelectedItem is INIProperty iniprop)
+            if (listBoxResults.SelectedItem is IniProperty iniprop)
             {
                 if (LastClicked == Stype.Result)
                 {
