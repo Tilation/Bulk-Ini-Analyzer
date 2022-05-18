@@ -23,6 +23,12 @@ Bulk Ini Analyzer is a tool that shows you every header/property combination of 
 - Open location of occurrence files.
 - Headers with numbers are scrapped down and numbers are replaced with "#" so if your headers look like [ITEM356] [ITEM357] [ITEM358], don't worry, this will truncate them to [ITEM#] so you know that that header is a numbered header. 
 
+## Todo:
+- Command line verification for CI/CD projects, to verify all data in the inis follow a header/property pattern.
+  - Specify a folder continaing the INIS
+  - Specify a filename match (can be * to match everything in the folder)
+  - Specify a path to the template
+  - When ran, would output if all files match the template.
 
 ## Youtube - Video
 [![](https://img.youtube.com/vi/XCgUTHAb5PA/0.jpg)](https://www.youtube.com/watch?v=XCgUTHAb5PA)
