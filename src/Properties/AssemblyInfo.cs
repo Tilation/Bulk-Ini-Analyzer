@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IniCompacter")]
+[assembly: AssemblyTitle("BulkIniAnalyzer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("IniCompacter")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyProduct("BulkIniAnalyzer")]
+[assembly: AssemblyCopyright("Copyright ©  2021-2022 Tilation")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
