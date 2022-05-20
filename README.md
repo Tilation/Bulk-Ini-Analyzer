@@ -24,21 +24,17 @@ Bulk Ini Analyzer is a tool that shows you every header/property combination of 
 - Headers with numbers are scrapped down and numbers are replaced with "#" so if your headers look like [ITEM356] [ITEM357] [ITEM358], don't worry, this will truncate them to [ITEM#] so you know that that header is a numbered header. 
 
 ## Todo:
-- Command line verification for CI/CD projects, to verify all data in the inis follow a header/property pattern.
+- [Command line verification for CI/CD projects, to verify all data in the inis follow a header/property pattern.](https://github.com/Tilation/Bulk-Ini-Analyzer/blob/main/ini-validation.md)
   - Specify a folder continaing the INIS
   - Specify a filename match (can be * to match everything in the folder)
   - Specify a path to the template
   - When ran, would output if all files match the template.
 
-## Youtube - Video
-[![](https://img.youtube.com/vi/XCgUTHAb5PA/0.jpg)](https://www.youtube.com/watch?v=XCgUTHAb5PA)
-
-
 ## Screenshots
-### Header & Properties
+### When selecting Header & Properties
+It shows on which files the header and property appears.
+![preview](https://github.com/Tilation/ImagenesPublicas/blob/main/Bulk%20Ini%20Analyzer/gridview.png?raw=true)
 
-![preview](https://github.com/Tilation/IniCompacter/blob/493ad47de829acc27e80eb3028b235fd455077de/Images/hpfinder.png)
-
-### Values
-
-![preview](https://github.com/Tilation/IniCompacter/blob/493ad47de829acc27e80eb3028b235fd455077de/Images/vfinder.png)
+### When selecting Values
+It shows on which files the value of that property appears.
+![preview](https://github.com/Tilation/ImagenesPublicas/blob/main/Bulk%20Ini%20Analyzer/gridview-values.png?raw=true)
