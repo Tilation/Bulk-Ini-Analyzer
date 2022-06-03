@@ -2,6 +2,7 @@
 
 ![Build Status](https://dev.azure.com/Tilation/Ini%20Data%20Viewer/_apis/build/status/Tilation.Bulk-Ini-Analyzer?branchName=main)
 [![](https://img.shields.io/badge/.Net%20Framework-4.8-brightgreen)](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48)
+![](https://www.codefactor.io/Content/badges/A.svg)
 
 [![](https://img.shields.io/badge/Latest%20Release-Download-brightgreen)](https://github.com/Tilation/Bulk-Ini-Analyzer/releases/latest)
 
@@ -11,8 +12,8 @@ Bulk Ini Analyzer is a tool that shows you every header/property combination of 
 1. Have a folder with lots of ini formated data.
 2. Select the folder in Bulk Ini Analyzer.
 3. If the files don't have the "INI" extension, you can change the extension to look after, write in the next textbox the target extension without punctuation.
-4. Press the gather button.
-5. Clicking on a header/property item will update the right list and the bottom, and show you in which files happens the occurrence. Also will show all the unique values found.
+4. Press the search button.
+5. Clicking on a header/property item will update the right list and the bottom, and show you in which files the occurrence appears. Also, it will show you all the unique values found.
 6. Double click the occurrence to open the file explorer with the file selected.
 
 ## Features:
@@ -22,14 +23,15 @@ Bulk Ini Analyzer is a tool that shows you every header/property combination of 
 - Searchbox for values.
 - Can modify the search pattern to read INI formatted data that doesn't have an .INI extension
 - Open location of occurrence files.
-- Headers with numbers are scrapped down and numbers are replaced with "#" so if your headers look like [ITEM356] [ITEM357] [ITEM358], don't worry, this will truncate them to [ITEM#] so you know that that header is a numbered header. 
+- Headers with numbers are reduced down and replaced with a single "#" so if your headers looked like [ITEM356] [ITEM357] [ITEM358], don't worry, this will truncate them to [ITEM#] to let you know that its a numbered header. 
 
 ## Todo:
 - [Command line verification for CI/CD projects, to verify all data in the inis follow a header/property pattern.](https://github.com/Tilation/Bulk-Ini-Analyzer/blob/main/ini-validation.md)
-  - Specify a folder continaing the INIS
+  - Specify a folder continaing the INIs
   - Specify a filename match (can be * to match everything in the folder)
   - Specify a path to the template
   - When ran, would output if all files match the template.
+- Edit values, headers and properties inside the editor.
 
 ## Screenshots
 ### When selecting Header & Properties
